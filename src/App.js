@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
-const socket = io.connect("http://localhost:5000");
+// Use the REACT_APP_BACKEND_URL environment variable to dynamically set the socket connection
+const socket = io.connect(process.env.REACT_APP_BACKEND_URL);
 
 function App() {
     const [message, setMessage] = useState("");
