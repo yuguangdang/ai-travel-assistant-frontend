@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
-// const socket = io.connect("http://localhost:5000");
-const socket = io.connect("https://flight-assitant-test.azurewebsites.net/");
+const socket = io.connect("http://localhost:5000");
+// const socket = io.connect("https://flight-assitant-test.azurewebsites.net/");
 
 function App() {
     const [message, setMessage] = useState("");
