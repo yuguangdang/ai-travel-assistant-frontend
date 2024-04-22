@@ -92,4 +92,23 @@ body {
   }
 }
 
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .chat-form {
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .chat-input, .send-button, .mic-button {
+    width: 90%;
+    margin-top: 10px;
+  }
+
+  .send-button, .mic-button {
+    padding: 15px 20px; /* Larger touch targets */
+  }
+
+  .chat-messages {
+    height: 50vh; /* Smaller height for more room for the input area */
+  }
+}
