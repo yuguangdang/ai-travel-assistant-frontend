@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
+// const socket = io.connect("http://127.0.0.1:5000");
 // const socket = io.connect("http://localhost:5000");
 const socket = io.connect("scout-flask-backend.azurewebsites.net");
 // const socket = io.connect("https://projectscoutagent89.au.ngrok.io/");
@@ -18,6 +19,27 @@ function App() {
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+    useEffect(() => {
+        socket.on("connect", () => {
+            console.log("Connected to the server");
+            // Send metadata after establishing the connection
+            socket.emit("session_start", {
+                debtorId: "EDIZZZZZZZ",
+                email: "ben.saul@downergroup.com",
+                externalReference: 65668,
+                firstName: "Yuguang",
+                lastName: "Dang",
+                name: "Yuguang Dang",
+                roleName: "traveller",
+            });
+        });
+
+        return () => {
+            socket.off("connect");
+            socket.close();
+        };
+    }, []);
 
     const sendChat = (e) => {
         e.preventDefault();
@@ -57,13 +79,6 @@ function App() {
         scrollToBottom();
     }, [displayedMessage]);
 
-    useEffect(() => {
-        // Emit an event when the page/component loads
-        console.log("page loaded");
-        socket.emit("page_loaded", {
-            message: "Page has been refreshed or loaded",
-        });
-    }, []);
 
     useEffect(() => {
         speechRecognition.current = new (window.SpeechRecognition ||
