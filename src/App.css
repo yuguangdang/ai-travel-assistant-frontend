@@ -44,13 +44,13 @@ body {
   width: 80%;
   max-width: 600px;
   margin-bottom: 20px;
-  /* background-color: white; */
   background-color: rgba(0, 0, 0, 0.8);
   border: 2px solid #41556b;
   border-radius: 5px;
   padding: 10px;
   overflow-y: auto;
   height: 80%;
+  position: relative; /* Added to enable positioning of the tabs */
 }
 
 .user-message {
@@ -82,14 +82,44 @@ body {
 
 @keyframes shine-animation {
   0% {
-      color: #fff; /* original color */
+    color: #fff; /* original color */
   }
   50% {
-      color: #ffcccb; /* lighter shade for a shine effect */
+    color: #ffcccb; /* lighter shade for a shine effect */
   }
   100% {
-      color: #fff; /* back to the original color */
+    color: #fff; /* back to the original color */
   }
+}
+
+/* Tab styles */
+.chat-tabs-container {
+  display: flex;
+  justify-content: left;
+  width: 600px;
+}
+
+.chat-tabs {
+  display: flex;
+}
+
+.chat-tabs button {
+  padding: 10px 20px;
+  background-color: #41556b;
+  color: white;
+  border: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.chat-tabs button.active {
+  background-color: #4e87c5;
+}
+
+.chat-tabs button:not(.active):hover {
+  background-color: #2e3b4e;
 }
 
 /* Responsive adjustments */
@@ -99,12 +129,15 @@ body {
     align-items: center;
   }
 
-  .chat-input, .send-button, .mic-button {
+  .chat-input,
+  .send-button,
+  .mic-button {
     width: 90%;
     margin-top: 10px;
   }
 
-  .send-button, .mic-button {
+  .send-button,
+  .mic-button {
     padding: 15px 20px; /* Larger touch targets */
   }
 
