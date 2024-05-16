@@ -5,8 +5,8 @@ import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
 // Establish a WebSocket connection to the backend
-const socket = io.connect("http://localhost:5000");
-// const socket = io.connect("scout-flask-backend.azurewebsites.net");
+// const socket = io.connect("http://localhost:5000");
+const socket = io.connect("scout-flask-backend.azurewebsites.net");
 // const socket = io.connect("https://projectscoutagent89.au.ngrok.io/");
 
 function App() {
