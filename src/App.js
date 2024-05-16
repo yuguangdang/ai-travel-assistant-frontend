@@ -4,43 +4,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
-// const socket = io.connect("http://127.0.0.1:5000");
-// const socket = io.connect("http://localhost:5000");
-const socket = io.connect("scout-flask-backend.azurewebsites.net");
+// Establish a WebSocket connection to the backend
+const socket = io.connect("http://localhost:5000");
+// const socket = io.connect("scout-flask-backend.azurewebsites.net");
 // const socket = io.connect("https://projectscoutagent89.au.ngrok.io/");
 
 function App() {
+    // State for the current message input by the user
     const [message, setMessage] = useState("");
+    // State for storing and displaying chat messages
     const [displayedMessage, setDisplayedMessage] = useState([]);
+    // State to manage if the app is listening for speech input
     const [isListening, setIsListening] = useState(false);
+    // Ref to keep track of the end of messages for scrolling
     const messagesEndRef = useRef(null);
+    // Ref to keep track of the speech recognition instance
     const speechRecognition = useRef(null);
 
+    // Function to scroll to the bottom of the chat
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
-    useEffect(() => {
-        socket.on("connect", () => {
-            console.log("Connected to the server");
-            // Send metadata after establishing the connection
-            socket.emit("session_start", {
-                debtorId: "EDIZZZZZZZ",
-                email: "ben.saul@downergroup.com",
-                externalReference: 65668,
-                firstName: "Yuguang",
-                lastName: "Dang",
-                name: "Yuguang Dang",
-                roleName: "traveller",
-            });
-        });
+    // Function to toggle the listening state
+    const toggleListen = () => {
+        setIsListening(!isListening);
+    };
 
-        return () => {
-            socket.off("connect");
-            socket.close();
-        };
-    }, []);
-
+    // Function to handle sending chat messages
     const sendChat = (e) => {
         e.preventDefault();
         socket.emit("chat message", message);
@@ -56,6 +47,35 @@ function App() {
         }
     };
 
+    // Scroll to bottom whenever displayedMessage updates
+    useEffect(() => {
+        scrollToBottom();
+    }, [displayedMessage]);
+
+    // Setup WebSocket connection and session metadata
+    useEffect(() => {
+        socket.on("connect", () => {
+            console.log("Connected to the server");
+            // Send metadata after establishing the connection
+            socket.emit("session_start", {
+                debtorId: "EDIZZZZZZZ",
+                email: "ben.saul@downergroup.com",
+                externalReference: 65668,
+                firstName: "Yuguang",
+                lastName: "Dang",
+                name: "Yuguang Dang",
+                roleName: "traveller",
+            });
+        });
+
+        // Cleanup on component unmount
+        return () => {
+            socket.off("connect");
+            socket.close();
+        };
+    }, []);
+
+    // Listen for incoming chat message chunks and update displayedMessage state
     useEffect(() => {
         socket.on("chat message chunk", ({ data }) => {
             setDisplayedMessage((prev) => {
@@ -70,16 +90,28 @@ function App() {
             });
         });
 
+        // Cleanup event listener on component unmount
         return () => {
             socket.off("chat message chunk");
         };
     }, []);
 
+    // Listen for the chat_with_consultant event and open a new tab with the provided URL
     useEffect(() => {
-        scrollToBottom();
-    }, [displayedMessage]);
+        socket.on("chat_with_consultant", (data) => {
+            // Open consultant chat in a new tab with the provided URL
+            console.log(data);
+            const chatUrl = data.get_url;
+            window.open(chatUrl, "_blank");
+        });
 
+        // Cleanup event listener on component unmount
+        return () => {
+            socket.off("chat_with_consultant");
+        };
+    }, []);
 
+    // Setup speech recognition
     useEffect(() => {
         speechRecognition.current = new (window.SpeechRecognition ||
             window.webkitSpeechRecognition)();
@@ -97,11 +129,13 @@ function App() {
                 speechRecognition.current.start();
             }
         };
+        // Cleanup speech recognition on component unmount
         return () => {
             speechRecognition.current.stop();
         };
     }, [isListening]);
 
+    // Toggle speech recognition
     useEffect(() => {
         console.log(`isListening: ${isListening}`);
         if (isListening) {
@@ -110,10 +144,6 @@ function App() {
             speechRecognition.current.stop();
         }
     }, [isListening]);
-
-    const toggleListen = () => {
-        setIsListening(!isListening);
-    };
 
     return (
         <div className="chat-container">
