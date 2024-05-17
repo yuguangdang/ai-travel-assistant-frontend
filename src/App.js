@@ -4,10 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 
+// JWT token for demo
+const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWJ0b3JJZCI6IkVESVpaWlpaWloiLCJlbWFpbCI6ImJlbi5zYXVsQGRvd25lcmdyb3VwLmNvbSIsImV4dGVybmFsUmVmZXJlbmNlIjo2NTY2OCwiZmlyc3ROYW1lIjoiWXVndWFuZyIsImxhc3ROYW1lIjoiRGFuZyIsIm5hbWUiOiJZdWd1YW5nIERhbmciLCJyb2xlTmFtZSI6InRyYXZlbGxlciIsInN1YiI6InRlc3QifQ.4ujBBKDLnnFxxCpJsrwd4OOSnFDqgkajOdV4BAKFxy8";
 // Establish a WebSocket connection to the backend
-// const socket = io.connect("http://localhost:5000");
-const socket = io.connect("scout-flask-backend.azurewebsites.net");
-// const socket = io.connect("https://projectscoutagent89.au.ngrok.io/");
+// const backend_url = "http://localhost:5000";
+const backend_url = "scout-flask-backend.azurewebsites.net"
+
+// Establish a WebSocket connection to the backend with JWT
+const socket = io.connect(backend_url, {
+    query: { token },
+});
 
 function App() {
     // State for the current message input by the user
@@ -80,17 +87,7 @@ function App() {
     // Setup WebSocket connection and session metadata
     useEffect(() => {
         socket.on("connect", () => {
-            console.log("Connected to the server");
-            // Send metadata after establishing the connection
-            socket.emit("session_start", {
-                debtorId: "EDIZZZZZZZ",
-                email: "ben.saul@downergroup.com",
-                externalReference: 65668,
-                firstName: "Yuguang",
-                lastName: "Dang",
-                name: "Yuguang Dang",
-                roleName: "traveller",
-            });
+            console.log("Connected to the Flask server");
         });
 
         // Cleanup on component unmount
