@@ -50,7 +50,7 @@ function App() {
 
         if (activeTab === "Scout") {
             // Send message to the WebSocket for Scout tab
-            socket.emit("chat message", message);
+            socket.emit("chat message", { token, message });
             setScoutMessages((prev) => [
                 ...prev,
                 { text: message, sender: "user" },
