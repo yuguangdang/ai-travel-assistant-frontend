@@ -7,14 +7,9 @@ import "./App.css";
 // JWT token for demo
 const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWJ0b3JJZCI6IkVESVpaWlpaWloiLCJlbWFpbCI6ImJlbi5zYXVsQGRvd25lcmdyb3VwLmNvbSIsImV4dGVybmFsUmVmZXJlbmNlIjo2NTY2OCwiZmlyc3ROYW1lIjoiWXVndWFuZyIsImxhc3ROYW1lIjoiRGFuZyIsIm5hbWUiOiJZdWd1YW5nIERhbmciLCJyb2xlTmFtZSI6InRyYXZlbGxlciIsInN1YiI6InRlc3QifQ.4ujBBKDLnnFxxCpJsrwd4OOSnFDqgkajOdV4BAKFxy8";
-// Establish a WebSocket connection to the backend
+// Backend URL
 // const backend_url = "http://localhost:5000";
-const backend_url = "scout-flask-backend.azurewebsites.net"
-
-// Establish a WebSocket connection to the backend with JWT
-const socket = io.connect(backend_url, {
-    query: { token },
-});
+const backend_url = "scout-flask-backend.azurewebsites.net";
 
 function App() {
     // State for the current message input by the user
@@ -34,6 +29,9 @@ function App() {
     // Ref to keep track of the speech recognition instance
     const speechRecognition = useRef(null);
 
+    // Ref to keep track of the WebSocket instance
+    const socketRef = useRef(null);
+
     // Function to scroll to the bottom of the chat
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -50,11 +48,13 @@ function App() {
 
         if (activeTab === "Scout") {
             // Send message to the WebSocket for Scout tab
-            socket.emit("chat message", { token, message });
-            setScoutMessages((prev) => [
-                ...prev,
-                { text: message, sender: "user" },
-            ]);
+            if (socketRef.current) {
+                socketRef.current.emit("chat message", { token, message });
+                setScoutMessages((prev) => [
+                    ...prev,
+                    { text: message, sender: "user" },
+                ]);
+            }
         } else if (activeTab === "Consultant") {
             // Send the message to the consultant chat server for Consultant tab
             fetch(chatUrl, {
@@ -86,102 +86,106 @@ function App() {
 
     // Setup WebSocket connection and session metadata
     useEffect(() => {
-        socket.on("connect", () => {
-            console.log("Connected to the Flask server");
-        });
-
-        // Cleanup on component unmount
-        return () => {
-            socket.off("connect");
-            socket.close();
-        };
-    }, []);
-
-    // Listen for incoming chat message chunks and update displayedMessage state
-    useEffect(() => {
-        socket.on("chat message chunk", ({ data }) => {
-            setScoutMessages((prev) => {
-                const lastMsg = prev.length > 0 ? prev[prev.length - 1] : null;
-                if (lastMsg && lastMsg.sender === "bot") {
-                    return [
-                        ...prev.slice(0, -1),
-                        { ...lastMsg, text: lastMsg.text + data },
-                    ];
-                }
-                return [...prev, { text: data, sender: "bot" }];
+        if (!socketRef.current) {
+            socketRef.current = io.connect(backend_url, {
+                query: { token },
             });
-        });
 
-        // Cleanup event listener on component unmount
-        return () => {
-            socket.off("chat message chunk");
-        };
-    }, []);
+            socketRef.current.on("connect", () => {
+                console.log("Connected to the Flask server");
+            });
 
-    // Listen for the chat_with_consultant event and handle SSE connection and acknowledgment
-    useEffect(() => {
-        socket.on("chat_with_consultant", (data) => {
-            console.log(data);
-            // Establish SSE connection
-            const eventSource = new EventSource(
-                data.get_url + "/" + data.chatId
-            );
+            // Listen for incoming chat message chunks and update displayedMessage state
+            socketRef.current.on("chat message chunk", ({ data }) => {
+                setScoutMessages((prev) => {
+                    const lastMsg =
+                        prev.length > 0 ? prev[prev.length - 1] : null;
+                    if (lastMsg && lastMsg.sender === "bot") {
+                        return [
+                            ...prev.slice(0, -1),
+                            { ...lastMsg, text: lastMsg.text + data },
+                        ];
+                    }
+                    return [...prev, { text: data, sender: "bot" }];
+                });
+            });
 
-            eventSource.onopen = () => {
-                console.log("SSE connection established");
+            // Listen for the chat_with_consultant event and handle SSE connection and acknowledgment
+            socketRef.current.on("chat_with_consultant", (data) => {
+                console.log(data);
+                // Establish SSE connection
+                const eventSource = new EventSource(
+                    data.get_url + "/" + data.chatId
+                );
 
-                // Acknowledge the connection
-                fetch(data.acknowledge_url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                })
-                    .then((response) => response.text()) // Handle string response
-                    .then((ackData) => {
-                        console.log("Connection acknowledged:", ackData);
+                eventSource.onopen = () => {
+                    console.log("SSE connection established");
 
-                        // Set chat URL for Consultant tab and switch to Consultant tab
-                        setChatUrl(data.post_url);
-                        setActiveTab("Consultant");
+                    // Acknowledge the connection
+                    fetch(data.acknowledge_url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                        .then((response) => response.text()) // Handle string response
+                        .then((ackData) => {
+                            console.log("Connection acknowledged:", ackData);
 
-                        // Send the default waiting message to the Consultant tab
+                            // Set chat URL for Consultant tab and switch to Consultant tab
+                            setChatUrl(data.post_url);
+                            setActiveTab("Consultant");
+
+                            // Send the default waiting message to the Consultant tab
+                            setConsultantMessages((prev) => [
+                                ...prev,
+                                {
+                                    text: "One of our consultants will talk to you soon, please wait...",
+                                    sender: "bot",
+                                },
+                            ]);
+                        })
+                        .catch((error) =>
+                            console.error(
+                                "Error acknowledging connection:",
+                                error
+                            )
+                        );
+                };
+
+                eventSource.addEventListener("new_message", async (event) => {
+                    console.log("Received message:", event.data);
+                    const message = JSON.parse(event.data);
+
+                    if (message.message === "/END") {
+                        // End the chat session and switch back to Scout tab
+                        setActiveTab("Scout");
+                        setChatUrl("");
+                    } else {
                         setConsultantMessages((prev) => [
                             ...prev,
-                            {
-                                text: "One of our consultant will talk to you soon, please wait...",
-                                sender: "bot",
-                            },
+                            { text: message.message, sender: "bot" },
                         ]);
-                    })
-                    .catch((error) =>
-                        console.error("Error acknowledging connection:", error)
-                    );
-            };
+                    }
+                });
 
-            eventSource.addEventListener("new_message", async (event) => {
-                console.log("Received message:", event.data);
-                const message = JSON.parse(event.data);
-
-                if (message.message === "/END") {
-                    // End the chat session and switch back to Scout tab
-                    setActiveTab("Scout");
-                    setChatUrl("");
-                } else {
-                    setConsultantMessages((prev) => [
-                        ...prev,
-                        { text: message.message, sender: "bot" },
-                    ]);
-                }
+                eventSource.onerror = (error) => {
+                    console.error("Error establishing SSE connection:", error);
+                };
+                // Cleanup event listener on component unmount
+                return () => {
+                    eventSource.close();
+                    socketRef.current.off("chat_with_consultant");
+                };
             });
 
-            eventSource.onerror = (error) => {
-                console.error("Error establishing SSE connection:", error);
-            };
-            // Cleanup event listener on component unmount
+            // Cleanup on component unmount
             return () => {
-                eventSource.close();
-                socket.off("chat_with_consultant");
+                if (socketRef.current) {
+                    socketRef.current.off("connect");
+                    socketRef.current.off("chat message chunk");
+                    socketRef.current.close();
+                }
             };
-        });
+        }
     }, []);
 
     // Setup speech recognition
