@@ -10,7 +10,7 @@ const token =
 // Backend URL
 const backend_url = "http://localhost:8000";
 
-function ChatREST() {
+function ChatRESTSSE() {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [isListening, setIsListening] = useState(false);
@@ -130,7 +130,7 @@ function ChatREST() {
 
     return (
         <div className="chat-container">
-            <h2>ChatREST</h2>
+            <h2>ChatREST-SSE</h2>
             <div className="chat-messages">
                 {messages.map((msg, index) => (
                     <pre
@@ -171,4 +171,4 @@ function ChatREST() {
     );
 }
 
-export default ChatREST;
+export default ChatRESTSSE;
