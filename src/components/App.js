@@ -8,8 +8,8 @@ const App = () => {
     return (
         <div className="app-container">
             <div className="chat-components">
-                <ChatSocket />
-                {/* <ChatREST /> */}
+                {/* <ChatSocket /> */}
+                <ChatREST />
                 <ChatRESTSSE/>
             </div>
         </div>

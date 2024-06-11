@@ -1,10 +1,3 @@
-body {
-  background-image: url('../city_night.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: rgb(212, 208, 208);
-}
 
 .chat-form {
   display: flex;
@@ -115,8 +108,11 @@ body {
 }
 
 .chat-messages pre {
-  white-space: pre-wrap; /* Preserve newlines and wrap long text */
-  word-wrap: break-word; /* Ensure long words break correctly */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
 }
 
 /* Responsive adjustments */

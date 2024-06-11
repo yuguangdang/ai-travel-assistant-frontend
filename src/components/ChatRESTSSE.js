@@ -108,25 +108,25 @@ function ChatRESTSSE() {
         }
     }, [isListening]);
 
-    // // Initial render useEffect
-    // useEffect(() => {
-    //     const initializeChat = async () => {
-    //         try {
-    //             const response = await axios.post(`${backend_url}/init`, {
-    //                 platform: "web",
-    //                 token,
-    //                 message: "init",
-    //             });
-    //             setMessages((prev) => [
-    //                 ...prev,
-    //                 { text: response.data.reply, sender: "bot" },
-    //             ]);
-    //         } catch (error) {
-    //             console.error("Error initializing chat:", error);
-    //         }
-    //     };
-    //     initializeChat();
-    // }, []);
+    // Initial render useEffect
+    useEffect(() => {
+        const initializeChat = async () => {
+            try {
+                const response = await axios.post(`${backend_url}/init`, {
+                    platform: "web",
+                    token,
+                    message: "init",
+                });
+                setMessages((prev) => [
+                    ...prev,
+                    { text: response.data.reply, sender: "bot" },
+                ]);
+            } catch (error) {
+                console.error("Error initializing chat:", error);
+            }
+        };
+        initializeChat();
+    }, []);
 
     return (
         <div className="chat-container">
