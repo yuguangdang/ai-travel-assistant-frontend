@@ -81,7 +81,7 @@
 .chat-tabs-container {
   display: flex;
   justify-content: left;
-  width: 500px;
+  width: 100%;
 }
 
 .chat-tabs {

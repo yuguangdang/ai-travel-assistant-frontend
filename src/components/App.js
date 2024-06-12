@@ -9,7 +9,7 @@ const App = () => {
         <div className="app-container">
             <div className="chat-components">
                 {/* <ChatSocket /> */}
-                <ChatREST />
+                {/* <ChatREST /> */}
                 <ChatRESTSSE/>
             </div>
         </div>

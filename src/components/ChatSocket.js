@@ -248,7 +248,7 @@ function App() {
                         onClick={() => setActiveTab("Scout")}
                         className={activeTab === "Scout" ? "active" : ""}
                     >
-                        Scout
+                        Scout AI
                     </button>
                     {chatUrl && (
                         <button
