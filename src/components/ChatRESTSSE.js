@@ -288,7 +288,7 @@ function ChatRESTSSE() {
                         onClick={() => setActiveTab("Scout")}
                         className={activeTab === "Scout" ? "active" : ""}
                     >
-                        Scout AI
+                        AI Assistant
                     </button>
                     {chatUrl && (
                         <button
