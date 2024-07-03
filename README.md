@@ -45,3 +45,6 @@ The application uses JSON Web Tokens (JWT) for authentication. The token is incl
 ### Speech Recognition
 
 The application includes speech recognition functionality using the Web Speech API. Users can toggle the microphone to enable or disable speech input, providing a hands-free chat experience.
+
+### A demo recording
+https://www.youtube.com/watch?v=jOkmDwpewiE&ab_channel=StaryAI
