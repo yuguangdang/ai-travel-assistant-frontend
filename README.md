@@ -29,18 +29,14 @@ This project is a React-based chat application that demonstrates implementing th
 
 <img width="862" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/c22cedfa-74cd-461c-95d2-65d5c5a37c77">
 <div>
-   <img width="425" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/72757398-f3bf-4155-bc7a-fa14f5255294">
-  <img width="425" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/597ed74e-2908-44c2-b899-961f6a2fb64c">
+   <img width="420" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/72757398-f3bf-4155-bc7a-fa14f5255294">
+  <img width="420" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/597ed74e-2908-44c2-b899-961f6a2fb64c">
 </div>
 
 ### State Management and UI Updates
 
 - **State Management:** The application uses React's `useState` and `useEffect` hooks to manage the state of messages, listening status, and active tabs.
 - **UI Updates:** The chat interface is dynamically updated based on the state changes, ensuring a seamless user experience. The application scrolls to the bottom of the chat view whenever new messages are added, providing a smooth scrolling experience.
-
-### JWT Authentication
-
-The application uses JSON Web Tokens (JWT) for authentication. The token is included in the requests to the backend to verify the user's identity. In a real-world application, the token would be dynamically generated and managed securely.
 
 ### Speech Recognition
 
