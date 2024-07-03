@@ -1,6 +1,9 @@
-<h1>Overview</h1>
+## Overview
 
 This project is a React-based chat application that demonstrates implementing three different communication methods: WebSocket, REST, and Server-Sent Events (SSE). The application is designed to provide a seamless chat experience with both AI travel assistants and human consultants.
+
+## Architecture
+<img width="882" height="662" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/32ec8ed4-f30a-43d7-8d72-cbde5081475d">
 
 
 ## Features
