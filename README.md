@@ -1,6 +1,6 @@
 <h1>Overview</h1>
 
-This project is a React-based chat application that demonstrates implementing three different communication methods: WebSocket, REST, and Server-Sent Events (SSE). The application is designed to provide a seamless chat experience with both AI assistants and human consultants.
+This project is a React-based chat application that demonstrates implementing three different communication methods: WebSocket, REST, and Server-Sent Events (SSE). The application is designed to provide a seamless chat experience with both AI travel assistants and human consultants.
 
 
 ## Features
@@ -25,7 +25,7 @@ This project is a React-based chat application that demonstrates implementing th
    - **REST:** Responses from the AI assistant are received as part of the HTTP response to the POST request.
    - **SSE:** Responses from the AI assistant are received as a continuous stream of events, allowing real-time updates.
 
-4. **Switching to Human Consultant:** During the conversation, if the AI assistant thinks the client needs to talk to a consultant, it will open a tab for talking to a consultant. This is managed by the backend, which provides the necessary endpoints and real-time communication channels. Once, the chat is picked by a consultant, the user can switch between chatting with AI and chatting with the consultant at any point. 
+4. **Switching to Human Consultant:** During the conversation, if the AI travel assistant thinks the client needs to talk to a consultant, it will open a tab for talking to a consultant. This is managed by the backend, which provides the necessary endpoints and real-time communication channels. Once, the chat is picked by a consultant, the user can switch between chatting with AI and chatting with the consultant at any point. 
 
 <img width="862" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/c22cedfa-74cd-461c-95d2-65d5c5a37c77">
 <div>
