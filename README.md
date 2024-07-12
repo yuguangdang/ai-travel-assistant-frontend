@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+## Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a React-based chat application that demonstrates implementing three different communication methods: WebSocket, REST, and Server-Sent Events (SSE), connecting to a Flask backend that interacts with an OpenAI-powered travel assistant. The application is designed to provide a seamless chat experience with both AI travel assistants and human consultants.
 
-## Available Scripts
+## Architecture
+<img width="882" height="662" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/32ec8ed4-f30a-43d7-8d72-cbde5081475d">
 
-In the project directory, you can run:
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Chat with AI Assistant using WebSocket:** Real-time communication with AI assistant using WebSocket for instant responses.
+- **Chat with AI Assistant using REST:** Communicate with AI assistant through REST API.
+- **Chat with AI Assistant using SSE:** Use Server-Sent Events for real-time communication with AI assistant.
+- **Switch between AI Assistant and Human Consultant:** The application can switch between chatting with an AI assistant and a human consultant based on the conversation context.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### Communication Flow
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Initialization:** When the chat application is loaded, it initializes the chat session by sending a request to the backend (`POST /init`).
 
-### `npm run build`
+2. **Sending Messages:**
+   - **WebSocket:** Messages are sent and received in real-time using a persistent WebSocket connection.
+   - **REST:** Messages are sent via HTTP POST requests, and responses are received as HTTP responses.
+   - **SSE:** Messages are sent via HTTP POST requests, and responses are streamed in real-time using SSE.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Receiving Messages:**
+   - **WebSocket:** Messages from the AI assistant are received instantly through the WebSocket connection.
+   - **REST:** Responses from the AI assistant are received as part of the HTTP response to the POST request.
+   - **SSE:** Responses from the AI assistant are received as a continuous stream of events, allowing real-time updates.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Switching to Human Consultant:** During the conversation, if the AI travel assistant thinks the client needs to talk to a consultant, it will open a tab for talking to a consultant. This is managed by the backend, which provides the necessary endpoints and real-time communication channels. Once, the chat is picked by a consultant, the user can switch between chatting with AI and chatting with the consultant at any point. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img width="862" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/c22cedfa-74cd-461c-95d2-65d5c5a37c77">
+<div>
+   <img width="420" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/72757398-f3bf-4155-bc7a-fa14f5255294">
+   <img width="420" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/597ed74e-2908-44c2-b899-961f6a2fb64c">
+</div>
 
-### `npm run eject`
+### State Management and UI Updates
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **State Management:** The application uses React's `useState` and `useEffect` hooks to manage the state of messages, listening status, and active tabs.
+- **UI Updates:** The chat interface is dynamically updated based on the state changes, ensuring a seamless user experience. The application scrolls to the bottom of the chat view whenever new messages are added, providing a smooth scrolling experience.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Speech Recognition
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application includes speech recognition functionality using the Web Speech API. Users can toggle the microphone to enable or disable speech input, providing a hands-free chat experience.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### A demo recording
+https://www.youtube.com/watch?v=jOkmDwpewiE&ab_channel=StaryAI
