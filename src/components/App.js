@@ -1,6 +1,4 @@
 import React from "react";
-import ChatSocket from "./ChatSocket";
-import ChatREST from "./ChatREST";
 import ChatRESTSSE from "./ChatRESTSSE";
 import "./App.css";
 
