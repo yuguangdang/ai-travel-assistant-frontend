@@ -11,7 +11,7 @@ const token =
 // const backend_url = "http://localhost:5000";
 const backend_url = "https://flask-rest.azurewebsites.net";
 
-function ChatRESTSSE() {
+function ChatSSE() {
     const [message, setMessage] = useState("");
     const [scoutMessages, setScoutMessages] = useState([]);
     const [consultantMessages, setConsultantMessages] = useState([]);
@@ -282,7 +282,7 @@ function ChatRESTSSE() {
 
     return (
         <div className="chat-container">
-            <h2>ChatREST-SSE</h2>
+            <h2>ChatSSE</h2>
             <div className="chat-tabs-container">
                 <div className="chat-tabs">
                     <button
@@ -332,4 +332,4 @@ function ChatRESTSSE() {
     );
 }
 
-export default ChatRESTSSE;
+export default ChatSSE;

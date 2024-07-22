@@ -8,10 +8,10 @@ import "./chat.css";
 const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWJ0b3JJZCI6IkVESVpaWlpaWloiLCJlbWFpbCI6ImJlbi5zYXVsQGRvd25lcmdyb3VwLmNvbSIsImV4dGVybmFsUmVmZXJlbmNlIjo2NTY2OCwiZmlyc3ROYW1lIjoiWXVndWFuZyIsImxhc3ROYW1lIjoiRGFuZyIsIm5hbWUiOiJZdWd1YW5nIERhbmciLCJyb2xlTmFtZSI6InRyYXZlbGxlciIsInN1YiI6InRlc3QifQ.4ujBBKDLnnFxxCpJsrwd4OOSnFDqgkajOdV4BAKFxy8";
 // Backend URL
-const backend_url = "http://localhost:5000";
-// const backend_url = "scout-flask-backend.azurewebsites.net";
+// const backend_url = "http://localhost:5000";
+const backend_url = "scout-flask-backend.azurewebsites.net";
 
-function App() {
+function ChatSocket() {
     // State for the current message input by the user
     const [message, setMessage] = useState("");
     // State for storing and displaying chat messages in Scout tab
@@ -293,4 +293,4 @@ function App() {
     );
 }
 
-export default App;
+export default ChatSocket;

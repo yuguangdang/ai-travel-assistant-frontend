@@ -11,7 +11,7 @@ const token =
 // const backend_url = "http://localhost:5000";
 const backend_url = "https://flask-rest.azurewebsites.net";
 
-function ChatREST() {
+function ChatHTTP() {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [isListening, setIsListening] = useState(false);
@@ -105,7 +105,7 @@ function ChatREST() {
 
     return (
         <div className="chat-container">
-            <h2>ChatREST</h2>
+            <h2>ChatHTTP</h2>
             <div className="chat-messages">
                 {messages.map((msg, index) => (
                     <p
@@ -146,4 +146,4 @@ function ChatREST() {
     );
 }
 
-export default ChatREST;
+export default ChatHTTP;
