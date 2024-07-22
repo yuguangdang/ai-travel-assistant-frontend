@@ -45,5 +45,3 @@ This project showcases an AI assistant chat application utilizing three distinct
 
 The application includes speech recognition functionality using the Web Speech API. Users can toggle the microphone to enable or disable speech input, providing a hands-free chat experience.
 
-### A demo recording
-https://www.youtube.com/watch?v=jOkmDwpewiE&ab_channel=StaryAI
