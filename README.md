@@ -30,10 +30,10 @@ This project is a React-based chat application that demonstrates implementing th
 
 4. **Switching to Human Consultant:** During the conversation, if the AI travel assistant thinks the client needs to talk to a consultant, it will open a tab for talking to a consultant. This is managed by the backend, which provides the necessary endpoints and real-time communication channels. Once, the chat is picked by a consultant, the user can switch between chatting with AI and chatting with the consultant at any point. 
 
-<img width="862" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/c22cedfa-74cd-461c-95d2-65d5c5a37c77">
+<img width="800" height="700" alt="intro-m" src="https://github.com/user-attachments/assets/2346b0c9-be4c-4b43-b648-b2917b7bfebb">
 <div>
-   <img width="420" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/72757398-f3bf-4155-bc7a-fa14f5255294">
-   <img width="420" height="700" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/597ed74e-2908-44c2-b899-961f6a2fb64c">
+   <img width="400" height="650" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/72757398-f3bf-4155-bc7a-fa14f5255294">
+   <img width="400" height="650" alt="intro-m" src="https://github.com/yuguangdang/ai-travel-assistant-frontend/assets/55920971/597ed74e-2908-44c2-b899-961f6a2fb64c">
 </div>
 
 ### State Management and UI Updates
