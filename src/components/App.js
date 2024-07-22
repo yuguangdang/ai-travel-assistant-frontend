@@ -5,19 +5,11 @@ import ChatSSE from "./ChatSSE";
 import "./App.css";
 
 const App = () => {
-    const [currentChat, setCurrentChat] = useState("ChatSocket");
+    const [currentChat, setCurrentChat] = useState("ChatHTTP");
 
     return (
         <div className="app-container">
             <div className="button-container">
-                <button
-                    className={`chat-button ${
-                        currentChat === "ChatSocket" ? "active" : ""
-                    }`}
-                    onClick={() => setCurrentChat("ChatSocket")}
-                >
-                    ChatSocket
-                </button>
                 <button
                     className={`chat-button ${
                         currentChat === "ChatHTTP" ? "active" : ""
@@ -33,6 +25,14 @@ const App = () => {
                     onClick={() => setCurrentChat("ChatSSE")}
                 >
                     ChatSSE
+                </button>
+                <button
+                    className={`chat-button ${
+                        currentChat === "ChatSocket" ? "active" : ""
+                    }`}
+                    onClick={() => setCurrentChat("ChatSocket")}
+                >
+                    ChatSocket
                 </button>
             </div>
             <div className="chat-components">
