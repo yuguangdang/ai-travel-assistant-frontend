@@ -4,14 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./chat.css";
 
-// JWT token for demo
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWJ0b3JJZCI6IkVESVpaWlpaWloiLCJlbWFpbCI6ImJlbi5zYXVsQGRvd25lcmdyb3VwLmNvbSIsImV4dGVybmFsUmVmZXJlbmNlIjo2NTY2OCwiZmlyc3ROYW1lIjoiWXVndWFuZyIsImxhc3ROYW1lIjoiRGFuZyIsIm5hbWUiOiJZdWd1YW5nIERhbmciLCJyb2xlTmFtZSI6InRyYXZlbGxlciIsInN1YiI6InRlc3QifQ.4ujBBKDLnnFxxCpJsrwd4OOSnFDqgkajOdV4BAKFxy8";
-// Backend URL
-// const backend_url = "http://localhost:5000";
-const backend_url = "https://flask-rest.azurewebsites.net";
 
-function ChatSSE() {
+function ChatSSE({ token, backendUrl }) {
     const [message, setMessage] = useState("");
     const [scoutMessages, setScoutMessages] = useState([]);
     const [consultantMessages, setConsultantMessages] = useState([]);
@@ -54,14 +48,14 @@ function ChatSSE() {
                     { text: message, sender: "user" },
                 ]);
 
-                await axios.post(`${backend_url}/chat_sse`, {
+                await axios.post(`${backendUrl}/chat_sse`, {
                     platform: "web",
                     token,
                     message,
                 });
 
                 eventSourceRef.current = new EventSource(
-                    `${backend_url}/chat_sse_stream?token=${token}&platform=web`
+                    `${backendUrl}/chat_sse_stream?token=${token}&platform=web`
                 );
 
                 eventSourceRef.current.addEventListener("message", (event) => {
@@ -249,7 +243,7 @@ function ChatSSE() {
     useEffect(() => {
         const initializeChat = async () => {
             try {
-                const response = await axios.post(`${backend_url}/init`, {
+                const response = await axios.post(`${backendUrl}/init`, {
                     platform: "web",
                     token,
                     message: "init",

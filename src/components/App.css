@@ -25,6 +25,22 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.clear-session-button {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(87, 185, 87);
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.clear-session-button:active {
+    background-color: rgb(60, 150, 60);
+    color: lightgray;
+}
+
 .chat-button:hover {
     background-color: #e0e0e0;
 }

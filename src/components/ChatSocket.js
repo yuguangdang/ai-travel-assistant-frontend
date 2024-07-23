@@ -4,14 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 import "./chat.css";
 
-// JWT token for demo
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWJ0b3JJZCI6IkVESVpaWlpaWloiLCJlbWFpbCI6ImJlbi5zYXVsQGRvd25lcmdyb3VwLmNvbSIsImV4dGVybmFsUmVmZXJlbmNlIjo2NTY2OCwiZmlyc3ROYW1lIjoiWXVndWFuZyIsImxhc3ROYW1lIjoiRGFuZyIsIm5hbWUiOiJZdWd1YW5nIERhbmciLCJyb2xlTmFtZSI6InRyYXZlbGxlciIsInN1YiI6InRlc3QifQ.4ujBBKDLnnFxxCpJsrwd4OOSnFDqgkajOdV4BAKFxy8";
-// Backend URL
-// const backend_url = "http://localhost:5000";
-const backend_url = "scout-flask-backend.azurewebsites.net";
 
-function ChatSocket() {
+const backendUrl = "scout-flask-backend.azurewebsites.net";
+
+function ChatSocket({ token }) {
     // State for the current message input by the user
     const [message, setMessage] = useState("");
     // State for storing and displaying chat messages in Scout tab
@@ -87,7 +83,7 @@ function ChatSocket() {
     // Setup WebSocket connection and session metadata
     useEffect(() => {
         if (!socketRef.current) {
-            socketRef.current = io.connect(backend_url, {
+            socketRef.current = io.connect(backendUrl, {
                 query: { token },
             });
 
