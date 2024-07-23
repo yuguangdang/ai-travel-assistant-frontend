@@ -6,12 +6,12 @@
 }
 
 .button-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh; 
-  margin-right: 20px;
-  padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    margin-right: 20px;
+    padding-left: 0px;
 }
 
 .chat-button {
@@ -45,6 +45,9 @@
     justify-content: center;
     height: 100vh;
     flex-direction: column;
+}
+.chat-form {
+    margin-bottom: 1rem;
 }
 
 /* Ensure the chat messages take up equal space and align side by side */
