@@ -95,7 +95,7 @@ function ChatHTTP({ token, backendUrl }) {
             }
         };
         initializeChat();
-    }, []);
+    }, [token, backendUrl]);
 
     return (
         <div className="chat-container">

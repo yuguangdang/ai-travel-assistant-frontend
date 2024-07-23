@@ -257,7 +257,7 @@ function ChatSSE({ token, backendUrl }) {
             }
         };
         initializeChat();
-    }, []);
+    }, [token, backendUrl]);
 
     const renderMessages = () => {
         const messages =

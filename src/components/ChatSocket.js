@@ -182,7 +182,7 @@ function ChatSocket({ token }) {
                 }
             };
         }
-    }, []);
+    }, [token]);
 
     // Setup speech recognition
     useEffect(() => {
