@@ -25,7 +25,7 @@ function ChatHTTP({ token, backendUrl }) {
         try {
             setMessage("");
             setMessages((prev) => [...prev, { text: message, sender: "user" }]);
-            const response = await axios.post(`${backendUrl}/chat`, {
+            const response = await axios.post(`${backendUrl}/api/chat`, {
                 platform: "web",
                 token,
                 message,
