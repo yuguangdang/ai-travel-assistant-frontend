@@ -6,9 +6,7 @@ import "./App.css";
 
 const App = () => {
     // const backendUrl = "http://localhost:5000";
-    // const backendUrl = "http://localhost:7071";
-    const backendUrl = "https://travel-agent.azurewebsites.net";
-    // const backendUrl = "https://flask-rest.azurewebsites.net";
+    const backendUrl = "https://flask-rest.azurewebsites.net";
 
     const token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZWJ0b3JJZCI6IkVESVpaWlpaWloiLCJlbWFpbCI6ImJlbi5zYXVsQGRvd25lcmdyb3VwLmNvbSIsImV4dGVybmFsUmVmZXJlbmNlIjo2NTY2OCwiZmlyc3ROYW1lIjoiWXVndWFuZyIsImxhc3ROYW1lIjoiRGFuZyIsIm5hbWUiOiJZdWd1YW5nIERhbmciLCJyb2xlTmFtZSI6InRyYXZlbGxlciIsInN1YiI6InRlc3QifQ.4ujBBKDLnnFxxCpJsrwd4OOSnFDqgkajOdV4BAKFxy8";
